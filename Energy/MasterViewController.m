@@ -15,6 +15,11 @@
 @end
 
 @implementation MasterViewController
+const NSInteger enableGPSTag = 1;
+const NSInteger autoPopulateTag = 2;
+
+@synthesize autoPopulateCell;
+@synthesize enableGPSCell;
 
 - (void)awakeFromNib {
     [super awakeFromNib];
@@ -27,25 +32,28 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view, typically from a nib.
-    self.navigationItem.leftBarButtonItem = self.editButtonItem;
+    //self.navigationItem.leftBarButtonItem = self.editButtonItem;
 
-    UIBarButtonItem *addButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(insertNewObject:)];
-    self.navigationItem.rightBarButtonItem = addButton;
-    self.detailViewController = (DetailViewController *)[[self.splitViewController.viewControllers lastObject] topViewController];
+    //UIBarButtonItem *addButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(insertNewObject:)];
+    //self.navigationItem.rightBarButtonItem = addButton;
+    //self.detailViewController = (DetailViewController *)[[self.splitViewController.viewControllers lastObject] topViewController];
+    
+    [self createSwitch :enableGPSCell :enableGPSTag];
+    [self createSwitch :autoPopulateCell :autoPopulateTag];
+}
+
+- (void)createSwitch:(UITableViewCell *)cell :(NSInteger)tag {
+    UISwitch *switchview = [[UISwitch alloc] initWithFrame:CGRectZero];
+    //        [switchview setOn:self.app.gpsAlwaysOn];
+    [switchview addTarget:self action:@selector(updateSwitchAtIndexPath: ) forControlEvents:UIControlEventValueChanged];
+    [switchview setTag:tag];
+    cell.accessoryView = switchview;
+    cell.selectionStyle = UITableViewCellSelectionStyleNone;
 }
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
-}
-
-- (void)insertNewObject:(id)sender {
-    if (!self.objects) {
-        self.objects = [[NSMutableArray alloc] init];
-    }
-    [self.objects insertObject:[NSDate date] atIndex:0];
-    NSIndexPath *indexPath = [NSIndexPath indexPathForRow:0 inSection:0];
-    [self.tableView insertRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
 }
 
 #pragma mark - Segues
@@ -62,22 +70,67 @@
 }
 
 #pragma mark - Table View
+//
+//- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
+//    return 1;
+//}
+//
+//- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+//    return self.objects.count;
+//}
+//
+//- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+//    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"Cell" forIndexPath:indexPath];
+//
+//    NSDate *object = self.objects[indexPath.row];
+//    cell.textLabel.text = [object description];
+//    return cell;
+//}
+//
+//- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+//{
+//    UITableViewCell *cell;
+//    NSArray *ids;
+//    if (indexPath.section == 0) {
+//        ids = @[@"CellBuildingStat", @"CellShareData",@"CellSaveData",@"CellCollections"];
+//        
+//    } else
+//        if (indexPath.section == 1) {
+//            ids = @[@"CellEnableGPS", @"CellAutoPopulateData"];
+//        }
+//    NSString *cellId = [ids objectAtIndex:indexPath.row];
+////    cell = [tableView dequeueReusableCellWithIdentifier:cellId];
+//    cell = [tableView re];
+//    if (cell == nil) {
+//        cell = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:cellId];
+//    }
+//    if (indexPath.section == 1 && indexPath.row == 0) {
+//        UISwitch *switchview = [[UISwitch alloc] initWithFrame:CGRectZero];
+////        [switchview setOn:self.app.gpsAlwaysOn];
+//        [switchview addTarget:self action:@selector(updateSwitchAtIndexPath: ) forControlEvents:UIControlEventValueChanged];
+//        
+//        cell.accessoryView = switchview;
+//        cell.selectionStyle = UITableViewCellSelectionStyleNone;
+//    }
+//    if (indexPath.section == 1 && indexPath.row == 1) {
+//    }
+//    
+//    
+//    return cell;
+//}
 
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return 1;
+- (void)updateSwitchAtIndexPath:(id)sender {
+    UISwitch *switchInCell = (UISwitch *)sender;
+    UITableViewCell * cell = (UITableViewCell*) switchInCell.superview;
+    UISwitch *switchView = (UISwitch *)cell.accessoryView;
+    if ([switchView tag] == enableGPSTag) {
+        // enable gps
+    } else if ([switchView tag] == autoPopulateTag) {
+        // auto populate
+    }
+//    self.app.gpsAlwaysOn = [switchView isOn];
 }
 
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return self.objects.count;
-}
-
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"Cell" forIndexPath:indexPath];
-
-    NSDate *object = self.objects[indexPath.row];
-    cell.textLabel.text = [object description];
-    return cell;
-}
 
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
     // Return NO if you do not want the specified item to be editable.
@@ -90,6 +143,22 @@
         [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
     } else if (editingStyle == UITableViewCellEditingStyleInsert) {
         // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view.
+    }
+}
+
+#pragma mark - Alert view delegate
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:
+(NSInteger)buttonIndex{
+    switch (buttonIndex) {
+        case 0:
+            NSLog(@"Cancel button clicked");
+            break;
+        case 1:
+            NSLog(@"OK button clicked");
+            break;
+            
+        default:
+            break;
     }
 }
 

@@ -15,6 +15,9 @@
 		84699CE519FD9F800064DCDC /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 84699CE419FD9F800064DCDC /* Images.xcassets */; };
 		84699CE819FD9F800064DCDC /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 84699CE619FD9F800064DCDC /* LaunchScreen.xib */; };
 		84699CF419FD9F800064DCDC /* EnergyTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 84699CF319FD9F800064DCDC /* EnergyTests.m */; };
+		84699CFE19FDA1280064DCDC /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 84699CFD19FDA1280064DCDC /* CoreLocation.framework */; };
+		84699D0019FDA14D0064DCDC /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 84699CFF19FDA14D0064DCDC /* MapKit.framework */; };
+		84DFC0FD1A0027AC00FF4BE4 /* MapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 84DFC0FC1A0027AC00FF4BE4 /* MapViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -43,6 +46,10 @@
 		84699CED19FD9F800064DCDC /* EnergyTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = EnergyTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		84699CF219FD9F800064DCDC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		84699CF319FD9F800064DCDC /* EnergyTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = EnergyTests.m; sourceTree = "<group>"; };
+		84699CFD19FDA1280064DCDC /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
+		84699CFF19FDA14D0064DCDC /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
+		84DFC0FB1A0027AC00FF4BE4 /* MapViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MapViewController.h; sourceTree = "<group>"; };
+		84DFC0FC1A0027AC00FF4BE4 /* MapViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MapViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -50,6 +57,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				84699D0019FDA14D0064DCDC /* MapKit.framework in Frameworks */,
+				84699CFE19FDA1280064DCDC /* CoreLocation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -66,6 +75,8 @@
 		84699CC819FD9F7F0064DCDC = {
 			isa = PBXGroup;
 			children = (
+				84699CFF19FDA14D0064DCDC /* MapKit.framework */,
+				84699CFD19FDA1280064DCDC /* CoreLocation.framework */,
 				84699CD319FD9F7F0064DCDC /* Energy */,
 				84699CF019FD9F800064DCDC /* EnergyTests */,
 				84699CD219FD9F7F0064DCDC /* Products */,
@@ -94,6 +105,8 @@
 				84699CE419FD9F800064DCDC /* Images.xcassets */,
 				84699CE619FD9F800064DCDC /* LaunchScreen.xib */,
 				84699CD419FD9F7F0064DCDC /* Supporting Files */,
+				84DFC0FB1A0027AC00FF4BE4 /* MapViewController.h */,
+				84DFC0FC1A0027AC00FF4BE4 /* MapViewController.m */,
 			);
 			path = Energy;
 			sourceTree = "<group>";
@@ -173,6 +186,11 @@
 				TargetAttributes = {
 					84699CD019FD9F7F0064DCDC = {
 						CreatedOnToolsVersion = 6.1;
+						SystemCapabilities = {
+							com.apple.Maps.iOS = {
+								enabled = 1;
+							};
+						};
 					};
 					84699CEC19FD9F800064DCDC = {
 						CreatedOnToolsVersion = 6.1;
@@ -226,6 +244,7 @@
 			files = (
 				84699CDA19FD9F7F0064DCDC /* AppDelegate.m in Sources */,
 				84699CDD19FD9F7F0064DCDC /* MasterViewController.m in Sources */,
+				84DFC0FD1A0027AC00FF4BE4 /* MapViewController.m in Sources */,
 				84699CD719FD9F7F0064DCDC /* main.m in Sources */,
 				84699CE019FD9F7F0064DCDC /* DetailViewController.m in Sources */,
 			);
@@ -420,6 +439,7 @@
 				84699CF919FD9F800064DCDC /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		84699CFA19FD9F800064DCDC /* Build configuration list for PBXNativeTarget "EnergyTests" */ = {
 			isa = XCConfigurationList;
@@ -428,6 +448,7 @@
 				84699CFC19FD9F800064DCDC /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

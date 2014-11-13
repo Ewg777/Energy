@@ -7,13 +7,15 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "DetailViewController.h"
 
-@class DetailViewController;
+@interface MasterViewController : UITableViewController;
 
-@interface MasterViewController : UITableViewController
+
 
 @property (strong, nonatomic) DetailViewController *detailViewController;
-
+@property (weak, nonatomic) IBOutlet UITableViewCell *enableGPSCell;
+@property (weak, nonatomic) IBOutlet UITableViewCell *autoPopulateCell;
 
 @end
 
